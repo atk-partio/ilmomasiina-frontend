@@ -6,7 +6,9 @@ var gulp = require('gulp'),
     minifyCSS = require('gulp-minify-css'),
 
     jshint = require('gulp-jshint'),
-    stylish = require('jshint-stylish');
+    stylish = require('jshint-stylish'),
+
+    karma = require('gulp-karma');
 
 var http = require('http'),
     ecstatic = require('ecstatic'),
@@ -14,14 +16,15 @@ var http = require('http'),
 
 var paths = {
   app: path.join(__dirname, 'app'),
-  styles: path.join(__dirname, 'styles')
+  styles: path.join(__dirname, 'styles'),
+  scripts: path.join(__dirname, 'app', 'js')
 }
 
-gulp.task('default', ['build', 'serve', 'watch']);
+gulp.task('default', ['run-tests', 'build', 'serve', 'watch']);
 
-gulp.task('build', ['scripts', 'styles']);
+gulp.task('build', ['run-tests', 'scripts', 'styles']);
 
-gulp.task('scripts', function() {
+gulp.task('scripts', ['run-tests'], function() {
   return gulp.src('./app/js/**/*.js')
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter(stylish))
@@ -37,8 +40,28 @@ gulp.task('styles', function() {
     .pipe(gulp.dest('./app/css'));
 });
 
+gulp.task('run-tests', function() {
+  var testFiles = [
+    'test/spec/**/*.js',
+    'app/bower_components/jquery/dist/jquery.js',
+    'app/bower_components/underscore/underscore.js',
+    'app/bower_components/angular/angular.js',
+    'app/bower_components/angular-route/angular-route.js',
+    'app/bower_components/angular-mocks/angular-mocks.js',
+    'app/js/*.js',
+    'app/js/**/*.js'
+  ];
+
+  return gulp.src(testFiles)
+    .pipe(karma({
+      configFile: './karma.conf.js',
+      action: 'run'
+    }));
+});
+
 gulp.task('watch', ['build'], function() {
-  return gulp.watch(paths.styles + '**/*.less', ['styles']);
+  gulp.watch([ './app/js/*.js', './app/js/**/*.js'], ['scripts']);
+  gulp.watch(paths.styles + '**/*.less', ['styles']);
 });
 
 gulp.task('serve', ['build'], function() {

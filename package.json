@@ -17,9 +17,13 @@
     "ecstatic": "~0.4.13",
     "gulp-minify-css": "~0.3.0",
     "gulp-jshint": "~1.5.0",
-    "jshint-stylish": "~0.1.5"
+    "jshint-stylish": "~0.1.5",
+    "gulp-karma": "0.0.2"
   },
   "scripts": {
-    "postinstall": "bower install"
+    "test": "gulp run-tests",
+    "start": "gulp serve",
+    "postinstall": "bower install",
+    "gulp": "gulp"
   }
 }
