@@ -17,3 +17,10 @@ Building
 ```bash
 ./gulp.sh
 ```
+
+Run tests
+---------
+Run the Karma runner
+```bash
+./node_modules/.bin/karma start
+```
