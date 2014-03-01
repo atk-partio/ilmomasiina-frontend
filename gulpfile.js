@@ -1,8 +1,12 @@
 var gulp = require('gulp'),
     util = require('gulp-util'),
     path = require('path'),
+
     less = require('gulp-less'),
-    minifyCSS = require('gulp-minify-css');
+    minifyCSS = require('gulp-minify-css'),
+
+    jshint = require('gulp-jshint'),
+    stylish = require('jshint-stylish');
 
 var http = require('http'),
     ecstatic = require('ecstatic'),
@@ -15,10 +19,17 @@ var paths = {
 
 gulp.task('default', ['build', 'serve', 'watch']);
 
-gulp.task('build', ['styles']);
+gulp.task('build', ['scripts', 'styles']);
+
+gulp.task('scripts', function() {
+  return gulp.src('./app/js/**/*.js')
+    .pipe(jshint('.jshintrc'))
+    .pipe(jshint.reporter(stylish))
+    .pipe(jshint.reporter('fail'));
+});
 
 gulp.task('styles', function() {
-  gulp.src('./styles/main.less')
+  return gulp.src('./styles/main.less')
     .pipe(less({
       paths: [ paths.styles ]
     }))
@@ -26,11 +37,11 @@ gulp.task('styles', function() {
     .pipe(gulp.dest('./app/css'));
 });
 
-gulp.task('watch', function() {
-  gulp.watch(paths.styles + '**/*.less', ['styles']);
+gulp.task('watch', ['build'], function() {
+  return gulp.watch(paths.styles + '**/*.less', ['styles']);
 });
 
-gulp.task('serve', function() {
+gulp.task('serve', ['build'], function() {
   http.createServer(ecstatic( { root: paths.app })).listen(serverPort);
   util.log('Started a server that listens to the port ' + serverPort + '...');
 });

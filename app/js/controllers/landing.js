@@ -2,5 +2,5 @@
 
 angular.module('ilmomasiina.controllers')
   .controller('LandingCtrl', ['$scope', function($scope) {
-    $scope.hello = "Hello World!";
+    $scope.hello = 'Hello World!';
   }]);
