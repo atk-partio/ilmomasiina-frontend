@@ -1,7 +1,8 @@
 var gulp = require('gulp'),
     util = require('gulp-util'),
     path = require('path'),
-    less = require('gulp-less');
+    less = require('gulp-less'),
+    minifyCSS = require('gulp-minify-css');
 
 var http = require('http'),
     ecstatic = require('ecstatic'),
@@ -21,6 +22,7 @@ gulp.task('styles', function() {
     .pipe(less({
       paths: [ paths.styles ]
     }))
+    .pipe(minifyCSS())
     .pipe(gulp.dest('./app/css'));
 });
 
