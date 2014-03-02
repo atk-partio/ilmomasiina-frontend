@@ -89,6 +89,9 @@ gulp.task('karma-unit-singlerun-lenient', ['scripts-dev'], function(callback) {
 
 /* TASKS FOR CONTINUOUS INTEGRATION */
 
+// task that runs the tests for continuous integration
+gulp.task('test', ['scripts-dev', 'karma-unit-for-ci']);
+
 // unit testing task that fails the build, but runs the tests only on Firefox
 gulp.task('karma-unit-for-ci', ['scripts-dev'], function(callback) {
   karmaSingleRun(callback, { browsers: ['Firefox'] });

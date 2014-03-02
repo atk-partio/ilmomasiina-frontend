@@ -21,7 +21,7 @@
     "gulp-karma": "0.0.2"
   },
   "scripts": {
-    "test": "gulp run-tests",
+    "test": "gulp test",
     "start": "gulp serve",
     "postinstall": "bower install",
     "gulp": "gulp"
