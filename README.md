@@ -1,6 +1,8 @@
 ilmomasiina-frontend
 ====================
 
+[![Code Climate](https://codeclimate.com/github/atk-partio/ilmomasiina-frontend.png)](https://codeclimate.com/github/atk-partio/ilmomasiina-frontend)
+
 Requirements
 ------------
 * [Node.js](http://nodejs.org/download/) >= 0.8
