@@ -6,3 +6,7 @@ node_js:
 before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
+
+notifications:
+  flowdock:
+    secure: "ZCYGuSd1ZJZTW7dKZJoA8KYu87XOekuSKI27Nfze6Cw16yb99uVry8uG8XnyU/f58Iu+fTaeMlL5NDyOPPsXY+70UPRU8SiwnTOGk1lUgytlngZ0whCfHTM7oVn/H766QmgdsDp3skpiH7rnlwcsTQESnr4Pm47nckQ1VNQ5Q7U="
